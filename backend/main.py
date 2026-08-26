@@ -1,6 +1,9 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from typing import Optional
+import os
 from routes.translate import router as translate_router
 from routes.billing import router as billing_router
 from services.slack_bot import slack_handler
@@ -10,6 +13,7 @@ app = FastAPI(
     version="2.4.0",
     description="Real-Time Cultural RAG & Gen Z Humor Translation Pipeline"
 )
+
 
 # Configure CORS
 app.add_middleware(
@@ -45,6 +49,23 @@ async def get_realtime_trends(subculture: Optional[str] = "universal"):
         ]
     }
 
+# Serve static files from the 'static' directory if it exists
+if os.path.exists("static"):
+    app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
+    
+    @app.get("/{catchall:path}")
+    async def serve_frontend(catchall: str):
+        # Prevent catching API, Docs, or Slack routes
+        if catchall.startswith("api/") or catchall.startswith("health") or catchall.startswith("docs") or catchall.startswith("redoc") or catchall.startswith("openapi.json"):
+            raise HTTPException(status_code=404, detail="Not Found")
+            
+        file_path = os.path.join("static", catchall)
+        if os.path.isfile(file_path):
+            return FileResponse(file_path)
+            
+        return FileResponse("static/index.html")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+
