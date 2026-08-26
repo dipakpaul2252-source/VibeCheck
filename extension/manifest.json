@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "VibeCheck // Instant Slang Translator",
+  "version": "1.0.0",
+  "description": "Real-time hover translation for Gen Z slang across social media.",
+  "permissions": ["activeTab", "storage"],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.twitter.com/*",
+        "*://*.x.com/*",
+        "*://*.reddit.com/*",
+        "*://*.linkedin.com/*"
+      ],
+      "js": ["content.js"],
+      "css": ["tooltip.css"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

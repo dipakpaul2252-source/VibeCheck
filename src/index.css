@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#F4F0EA] text-black font-display antialiased transition-colors duration-200;
+  }
+  
+  html.dark body {
+    @apply bg-[#0F0F11] text-white;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-left: 2px solid #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #E2F952;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0px 0px #000000;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C084FC;
+}
+
+/* Custom styles for animations and utilities */
+.stroke-draw {
+  stroke-dasharray: 100;
+  animation: draw 2s ease forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
