@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { TranslationResult } from '../../types';
 import { Button } from '../ui/Button';
-import { X, Share2, Sparkles } from 'lucide-react';
+import { X, Share2, Sparkles, Check } from 'lucide-react';
+import { soundEngine } from '../../lib/audioEffects';
 
 interface ShareCardModalProps {
   result: TranslationResult | null;
@@ -9,8 +10,17 @@ interface ShareCardModalProps {
 }
 
 export const ShareCardModal: React.FC<ShareCardModalProps> = ({ result, onClose }) => {
+  const [copied, setCopied] = useState(false);
   if (!result) return null;
   
+  const handleExport = () => {
+    const cardText = `⚡ VIBECHECK // LVL ${result.intensity} BRAINROT\nOriginal: "${result.originalText}"\nTranslation: "${result.translatedText}"\nCringe Score: ${result.cringeScore}%\nPowered by VibeCheck.ai`;
+    navigator.clipboard.writeText(cardText);
+    soundEngine.playAuraChime();
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
       <div className="w-full max-w-lg border-4 border-black bg-white p-6 shadow-brutal-lg animate-in fade-in zoom-in duration-150">
@@ -67,17 +77,16 @@ export const ShareCardModal: React.FC<ShareCardModalProps> = ({ result, onClose 
             CLOSE
           </Button>
           <Button
-            variant="coral"
+            variant={copied ? "emerald" : "coral"}
             size="sm"
-            onClick={() => {
-              alert('Vibe Card copied as an image to clipboard!');
-            }}
-            leftIcon={<Share2 className="h-4 w-4" />}
+            onClick={handleExport}
+            leftIcon={copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
           >
-            EXPORT CARD
+            {copied ? "COPIED TO CLIPBOARD!" : "EXPORT CARD"}
           </Button>
         </div>
       </div>
     </div>
   );
 };
+

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowLeftRight, Copy, Check, Trash2, ClipboardPaste, Share2, HelpCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { ArrowLeftRight, Copy, Check, Trash2, ClipboardPaste, Share2, HelpCircle, Sparkles, Loader2 } from 'lucide-react';
 import type { BrainrotLevel, TranslationDirection, SubcultureType, TranslationResult, SlangTerm } from '../../types';
 import { translateText } from '../../lib/translatorEngine';
+import { requestAITranslation } from '../../lib/aiTranslator';
 import { useTypewriter } from '../../hooks/useTypewriter';
+import { useVibeStore } from '../../store/useVibeStore';
 import { Button } from '../ui/Button';
 
 interface DualPaneWorkspaceProps {
@@ -38,29 +40,55 @@ export const DualPaneWorkspace: React.FC<DualPaneWorkspaceProps> = ({
   onShareCard,
   onTranslate
 }) => {
+  const { approvedSlangTerms } = useVibeStore();
   const [lastResult, setLastResult] = useState<TranslationResult>(() => 
     translateText(inputText, intensity, direction, subculture)
   );
+  const [isAILoading, setIsAILoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const { displayedText, isTyping } = useTypewriter(lastResult.translatedText, { speed: 14 });
+  const activeRequestId = useRef(0);
 
-  const handleTranslate = (textToTranslate = inputText, dir = direction) => {
+  const handleTranslate = useCallback(async (textToTranslate = inputText, dir = direction) => {
     if (!textToTranslate.trim()) return;
-    const res = translateText(textToTranslate, intensity, dir, subculture);
-    setLastResult(res);
-    if (onTranslate) onTranslate(res);
-  };
+    const reqId = ++activeRequestId.current;
+    
+    // 1. Instant dictionary result for 0ms UI responsiveness
+    const instantRes = translateText(textToTranslate, intensity, dir, subculture);
+    setLastResult(instantRes);
+    if (onTranslate) onTranslate(instantRes);
 
-  // Re-translate when intensity or subculture parameters change in parent component
+    // 2. Fetch Real AI translation in background
+    setIsAILoading(true);
+    try {
+      const aiRes = await requestAITranslation({
+        text: textToTranslate,
+        intensity,
+        subculture,
+        direction: dir,
+        communitySlang: approvedSlangTerms
+      });
+      if (reqId === activeRequestId.current) {
+        setLastResult(aiRes);
+        if (onTranslate) onTranslate(aiRes);
+      }
+    } finally {
+      if (reqId === activeRequestId.current) {
+        setIsAILoading(false);
+      }
+    }
+  }, [inputText, intensity, direction, subculture, approvedSlangTerms, onTranslate]);
+
+  // Re-translate when parameters change
   useEffect(() => {
     if (!inputText.trim()) return;
     const timer = setTimeout(() => {
-      const res = translateText(inputText, intensity, direction, subculture);
-      setLastResult(res);
-      if (onTranslate) onTranslate(res);
-    }, 0);
+      handleTranslate(inputText, direction);
+    }, 250);
     return () => clearTimeout(timer);
-  }, [inputText, intensity, direction, subculture, onTranslate]);
+  }, [inputText, direction, handleTranslate]);
+
+
 
   const handleSwapDirection = () => {
     const newDir = direction === 'to_genz' ? 'to_corporate' : 'to_genz';
@@ -175,6 +203,15 @@ export const DualPaneWorkspace: React.FC<DualPaneWorkspaceProps> = ({
             <span className="font-display text-sm font-black text-black">
               {direction === 'to_genz' ? 'GEN Z / BRAINROT TRANSLATION' : 'CORPORATE DE-CRINGED ENGLISH'}
             </span>
+            {isAILoading ? (
+              <span className="flex items-center gap-1 border border-black bg-[#E2F952] px-1.5 py-0.5 font-mono text-[9px] font-bold text-black animate-pulse">
+                <Loader2 className="h-2.5 w-2.5 animate-spin" /> AI THINKING...
+              </span>
+            ) : (
+              <span className="hidden sm:flex items-center gap-1 border border-black bg-white px-1.5 py-0.5 font-mono text-[9px] font-bold text-neutral-600">
+                <Sparkles className="h-2.5 w-2.5 text-amber-500" /> AI READY
+              </span>
+            )}
           </div>
           <div className="flex items-center gap-2">
             {onOpenWhyItsFunny && lastResult.translatedText && (

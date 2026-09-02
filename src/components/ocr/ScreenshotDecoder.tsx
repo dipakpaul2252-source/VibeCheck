@@ -31,19 +31,45 @@ export const ScreenshotDecoder: React.FC<ScreenshotDecoderProps> = ({
 }) => {
   const [isScanning, setIsScanning] = useState(false);
   const [extractedText, setExtractedText] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
   
   if (!isOpen) return null;
   
-  const handleSimulateScan = (textToExtract: string) => {
+  const handleSimulateScan = (textToExtract: string, imageSrc?: string) => {
     setIsScanning(true);
     setExtractedText(null);
+    if (imageSrc) setPreviewUrl(imageSrc);
     soundEngine.playSwap();
     
     setTimeout(() => {
       setIsScanning(false);
       setExtractedText(textToExtract);
       soundEngine.playAuraChime();
-    }, 1400);
+    }, 1200);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      const simulatedExtracts = [
+        "Bro really thought he had unspoken rizz but got caught in 4K losing 1000 aura 💀",
+        "We need to lock in on these deliverables before management crashes out fr.",
+        "The team tried to mog the client presentation but suffered fatal copium overload."
+      ];
+      const randomExtract = simulatedExtracts[Math.floor(Math.random() * simulatedExtracts.length)];
+      handleSimulateScan(randomExtract, url);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      handleSimulateScan("He tried to mog the design review but suffered a fatal copium crashout.", url);
+    }
   };
   
   const handleApplyToWorkspace = () => {
@@ -55,7 +81,7 @@ export const ScreenshotDecoder: React.FC<ScreenshotDecoderProps> = ({
   
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-xl border-4 border-black bg-white p-6 shadow-brutal-lg animate-in fade-in zoom-in duration-150">
+      <div className="w-full max-w-xl border-4 border-black bg-white p-6 shadow-brutal-lg animate-in fade-in zoom-in duration-150 text-left">
         <div className="flex items-center justify-between border-b-3 border-black pb-3 select-none">
           <div className="flex items-center gap-2">
             <Scan className="h-5 w-5 text-[#FF5C00]" />
@@ -72,7 +98,19 @@ export const ScreenshotDecoder: React.FC<ScreenshotDecoderProps> = ({
         </div>
         
         {/* DROPZONE / SCANNER AREA */}
-        <div className="relative mt-5 flex min-h-[180px] flex-col items-center justify-center border-3 border-dashed border-black bg-[#FAF9F5] p-6 text-center overflow-hidden">
+        <input 
+          type="file" 
+          ref={fileInputRef} 
+          onChange={handleFileUpload} 
+          accept="image/*" 
+          className="hidden" 
+        />
+        <div 
+          onClick={() => fileInputRef.current?.click()}
+          onDragOver={(e) => e.preventDefault()}
+          onDrop={handleDrop}
+          className="relative mt-5 flex min-h-[160px] cursor-pointer flex-col items-center justify-center border-3 border-dashed border-black bg-[#FAF9F5] p-6 text-center hover:bg-[#FDFBE8] transition-colors overflow-hidden"
+        >
           {isScanning && (
             <div className="absolute inset-0 z-20 pointer-events-none">
               {/* Animated Laser Scanning Line */}
@@ -80,19 +118,22 @@ export const ScreenshotDecoder: React.FC<ScreenshotDecoderProps> = ({
               <div className="absolute inset-0 bg-[#10B981]/10 backdrop-blur-[1px]" />
             </div>
           )}
+          {previewUrl && (
+            <img src={previewUrl} alt="Uploaded screenshot" className="max-h-24 object-contain mb-2 border border-black" />
+          )}
           <Upload className="h-8 w-8 text-neutral-400 mb-2 select-none" />
           <p className="font-display text-sm font-black text-black select-none">
-            DRAG & DROP MEME OR CHAT SCREENSHOT
+            DRAG & DROP OR CLICK TO UPLOAD SCREENSHOT
           </p>
           <span className="font-mono text-xs font-bold text-neutral-500 mt-1 select-none">
-            Supports PNG, JPG, or select a sample below
+            Supports PNG, JPG, WebP — or pick a preset below
           </span>
         </div>
         
         {/* SAMPLE PRESETS */}
         <div className="mt-4 text-left">
           <span className="font-mono text-[10px] font-black uppercase text-neutral-700 select-none">
-            TEST WITH SIMULATED SCREENSHOT SAMPLES:
+            OR TEST WITH INSTANT PRESETS:
           </span>
           <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
             {SAMPLE_MEME_PREVIEWS.map((sample, idx) => (
