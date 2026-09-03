@@ -5,19 +5,19 @@
 @tailwind utilities;
 
 :root {
-  --canvas: #EFECE6;
-  --surface: #FAF9F6;
-  --output: #9284A3;
-  --sage: #A3B86C;
-  --terracotta: #C27D65;
-  --rust: #A35C48;
-  --ink: #242528;
-  --muted: #68645e;
-  --line: #242528;
-  --lime: #A3B86C;
-  --lilac: #9284A3;
-  --cyan: #9BBFC0;
-  --coral: #C27D65;
+  --canvas: #F7F5EF;
+  --surface: #FFFDF8;
+  --output: #D9CBE8;
+  --sage: #B5E36A;
+  --terracotta: #E99A7B;
+  --rust: #B96B58;
+  --ink: #202225;
+  --muted: #5F625F;
+  --line: #202225;
+  --lime: #B5E36A;
+  --lilac: #D9CBE8;
+  --cyan: #9DDEE0;
+  --coral: #E99A7B;
   font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -35,9 +35,14 @@ button, textarea, select { font: inherit; }
 
 @layer components {
   .fluid-shell { position: relative; isolation: isolate; min-height: 100vh; background-color: var(--canvas); color: var(--ink); }
-  .fluid-shell::before { content: ''; position: fixed; inset: 0; z-index: -2; pointer-events: none; opacity: .28; background-image: linear-gradient(rgba(36,37,40,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(36,37,40,.12) 1px, transparent 1px); background-size: 16px 16px; mask-image: linear-gradient(90deg, #000, transparent 18%, transparent 82%, #000); }
-  .fluid-shell::after { content: ''; position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: .055; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E"); mix-blend-mode: multiply; }
-  .fluid-surface { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 7px 8px 0 rgba(36,37,40,.16); }
+  .fluid-shell::before { content: ''; position: fixed; inset: 0; z-index: -2; pointer-events: none; opacity: .62; background-image: linear-gradient(rgba(32,34,37,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(32,34,37,.13) 1px, transparent 1px), radial-gradient(circle, rgba(32,34,37,.22) 1px, transparent 1.3px); background-size: 32px 32px, 32px 32px, 11px 11px; mask-image: linear-gradient(90deg, #000, transparent 12%, transparent 88%, #000); }
+  .fluid-shell::after { content: ''; position: fixed; inset: 0; z-index: 5; pointer-events: none; opacity: .085; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E"); mix-blend-mode: multiply; }
+  .fluid-shell { background-image: linear-gradient(118deg, transparent 0 72%, rgba(181,227,106,.20) 72% 78%, transparent 78%), linear-gradient(298deg, transparent 0 12%, rgba(157,222,224,.20) 12% 16%, transparent 16%); }
+  .fluid-shell main { position: relative; }
+  .fluid-shell main::before, .fluid-shell main::after { content: ''; position: absolute; pointer-events: none; border: 1px solid rgba(32,34,37,.22); }
+  .fluid-shell main::before { width: 110px; height: 110px; right: 5%; top: 7%; border-radius: 50%; box-shadow: inset 0 0 0 9px rgba(217,203,232,.46), inset 0 0 0 18px rgba(157,222,224,.34); }
+  .fluid-shell main::after { width: 150px; height: 14px; left: 4%; top: 22%; transform: rotate(-8deg); background: var(--terracotta); opacity: .65; }
+  .fluid-surface { border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: 7px 8px 0 rgba(32,34,37,.16); }
   .fluid-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; text-transform: uppercase; }
   .mechanical-button { border-color: var(--ink); border-radius: 4px; box-shadow: 4px 4px 0 var(--ink); }
   .mechanical-button:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }

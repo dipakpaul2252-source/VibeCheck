@@ -2,7 +2,7 @@
 
 .app-frame { min-height: 100vh; background: var(--canvas); }
 .app-main { width: min(1440px, 100%); margin: 0 auto; padding: clamp(1.25rem, 3vw, 3rem) clamp(1rem, 4vw, 4rem) 4rem; }
-.app-action-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: 14px; background: rgba(251,250,247,.75); box-shadow: 3px 4px 0 rgba(23,23,23,.06); }
+.app-action-bar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,253,248,.92); box-shadow: 3px 4px 0 rgba(23,23,23,.06); }
 .app-lower-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.75rem); }
 .app-footer { border-top: 1px solid rgba(39,37,34,.4); padding: 1.25rem clamp(1rem, 4vw, 4rem); color: var(--muted); }
 @media (max-width: 900px) { .app-lower-grid { grid-template-columns: 1fr; } }
