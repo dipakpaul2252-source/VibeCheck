@@ -20,7 +20,7 @@ export const BrainrotSlider: React.FC<BrainrotSliderProps> = ({ value, onChange,
   const current = LEVEL_DETAILS[value];
   
   return (
-    <div className={`border-3 border-black bg-white p-4 shadow-brutal transition-all duration-200 ${value === 5 ? 'ring-4 ring-red-500 animate-pulse' : ''}`}>
+    <div className={`fluid-surface p-4 transition-all duration-300 ${value === 5 ? 'ring-2 ring-[var(--coral)]' : ''}`}>
       <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-black pb-3">
         <div className="flex items-center gap-2">
           <div
@@ -39,7 +39,7 @@ export const BrainrotSlider: React.FC<BrainrotSliderProps> = ({ value, onChange,
         </span>
       </div>
       
-      <div className="mt-4 grid grid-cols-5 gap-2">
+      <div className="mt-4 grid grid-cols-5 gap-px overflow-hidden rounded-lg border border-[var(--line)] bg-[var(--line)]">
         {([1, 2, 3, 4, 5] as BrainrotLevel[]).map((level) => {
           const isSelected = value === level;
           const config = LEVEL_DETAILS[level];

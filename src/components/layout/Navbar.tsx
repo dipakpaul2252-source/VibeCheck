@@ -15,7 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenLeaderboard,
 }) => {
   return (
-    <header className="sticky top-0 z-50 border-b-3 border-black bg-white px-4 py-3 sm:px-8">
+    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--canvas)]/95 px-4 py-3 backdrop-blur sm:px-8">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 border-2 border-black bg-[#E2F952] px-3 py-1 shadow-brutal-sm">

@@ -28,7 +28,7 @@ export const AuraPointsWidget: React.FC<AuraPointsWidgetProps> = ({ onOpenLeader
   return (
     <div 
       onClick={onOpenLeaderboard}
-      className="flex flex-col md:flex-row items-stretch md:items-center gap-3 border-3 border-black bg-white p-3 shadow-brutal hover:-translate-y-[2px] transition-all cursor-pointer select-none"
+      className="flex cursor-pointer select-none flex-col items-stretch gap-3 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-2.5 shadow-[3px_4px_0_rgba(23,23,23,.08)] transition-transform hover:-translate-y-0.5 md:flex-row md:items-center"
     >
       {/* Points Badge */}
       <div className="flex items-center gap-2 border-2 border-black bg-[#E2F952] px-3 py-1 text-black font-mono shadow-brutal-sm">

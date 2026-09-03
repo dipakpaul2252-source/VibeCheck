@@ -116,9 +116,9 @@ export const DualPaneWorkspace: React.FC<DualPaneWorkspaceProps> = ({
   };
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
       {/* INPUT PANE */}
-      <div className="flex flex-col border-3 border-black bg-white p-5 shadow-brutal">
+      <div className="fluid-surface flex min-h-[360px] flex-col p-5 transition-transform duration-300 hover:-translate-y-0.5">
         <div className="flex items-center justify-between border-b-2 border-black pb-3">
           <div className="flex items-center gap-2">
             <span className="border-2 border-black bg-[#E2F952] px-2 py-0.5 font-mono text-xs font-black text-black shadow-brutal-sm select-none">
@@ -194,7 +194,7 @@ export const DualPaneWorkspace: React.FC<DualPaneWorkspaceProps> = ({
       </div>
 
       {/* OUTPUT PANE */}
-      <div className="flex flex-col border-3 border-black bg-white p-5 shadow-brutal">
+      <div className="fluid-surface flex min-h-[360px] flex-col p-5 transition-transform duration-300 hover:-translate-y-0.5">
         <div className="flex items-center justify-between border-b-2 border-black pb-3">
           <div className="flex items-center gap-2">
             <span className="border-2 border-black bg-[#C084FC] px-2 py-0.5 font-mono text-xs font-black text-black shadow-brutal-sm select-none">
@@ -227,7 +227,7 @@ export const DualPaneWorkspace: React.FC<DualPaneWorkspaceProps> = ({
           </div>
         </div>
         
-        <div className="mt-4 min-h-[160px] border-2 border-black bg-[#FAF9F5] p-3 font-mono text-sm leading-relaxed text-black">
+        <div className="mt-4 min-h-[160px] border-2 border-black bg-[var(--lilac)]/45 p-4 font-mono text-sm leading-relaxed text-[var(--ink)] rounded-lg">
           <p className="whitespace-pre-wrap">{displayedText}</p>
           {isTyping && <span className="inline-block h-4 w-2 animate-ping bg-black ml-1" />}
         </div>

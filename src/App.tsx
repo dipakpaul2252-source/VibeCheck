@@ -73,7 +73,7 @@ export function App() {
 
 
   return (
-    <div className="min-h-screen bg-[#F4F0EA] text-black font-display antialiased selection:bg-[#E2F952] selection:text-black pb-12">
+    <div className="app-frame fluid-shell pb-12">
       {/* 1. TOP NAVBAR */}
       <Navbar
         soundEnabled={soundEnabled}
@@ -88,10 +88,10 @@ export function App() {
       <MarqueeBanner />
 
       {/* 3. MAIN WORKSPACE CONTAINER */}
-      <main className="mx-auto max-w-7xl px-4 py-8 space-y-8 sm:px-6 lg:px-8">
+      <main className="app-main flex flex-col gap-7">
         
         {/* ACTION BAR: MULTIMODAL OCR + SUBCULTURE PICKER + PROPOSE WORD */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-3 border-black bg-white p-4 shadow-brutal">
+        <div className="app-action-bar">
           <SubculturePicker
             selected={subculture}
             onSelect={handleSubcultureChange}
@@ -153,7 +153,7 @@ export function App() {
         />
 
         {/* 6. LOWER TELEMETRY, VERDICT & HISTORY GRID */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="app-lower-grid">
           <TelemetryDashboard
             cringeScore={cringeScore}
             activeTerm={selectedTerm}
@@ -224,7 +224,7 @@ export function App() {
       </main>
 
       {/* 7. FOOTER */}
-      <footer className="mt-16 border-t-3 border-black bg-white px-4 py-6 text-center font-mono text-xs font-bold text-neutral-600">
+      <footer className="app-footer text-center font-mono text-xs font-bold">
         <div className="mx-auto max-w-7xl flex flex-col items-center justify-between gap-2 sm:flex-row">
           <span>VIBECHECK // REAL-TIME CULTURAL RAG TRANSLATION ENGINE &copy; 2026</span>
           <span className="border border-black bg-[#E2F952] px-2 py-0.5 text-black">
