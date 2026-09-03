@@ -19,14 +19,14 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const variantStyles = {
-    yellow: 'bg-[#E2F952] text-black hover:bg-[#d4ec3f]',
-    coral: 'bg-[#FF5C00] text-white hover:bg-[#e05200]',
-    lilac: 'bg-[#C084FC] text-black hover:bg-[#b06cf5]',
-    cyan: 'bg-[#00F0FF] text-black hover:bg-[#00d8e6]',
-    emerald: 'bg-[#10B981] text-white hover:bg-[#0ea372]',
-    crimson: 'bg-[#EF4444] text-white hover:bg-[#dc2626]',
-    white: 'bg-white text-black hover:bg-neutral-100',
-    outline: 'bg-transparent text-black border-2 border-black hover:bg-black/5',
+    yellow: 'bg-[var(--sage)] text-[var(--ink)] hover:bg-[var(--sage)]',
+    coral: 'bg-[var(--terracotta)] text-[var(--ink)] hover:bg-[var(--terracotta)]',
+    lilac: 'bg-[var(--output)] text-[var(--ink)] hover:bg-[var(--output)]',
+    cyan: 'bg-[var(--cyan)] text-[var(--ink)] hover:bg-[var(--cyan)]',
+    emerald: 'bg-[var(--sage)] text-[var(--ink)] hover:bg-[var(--sage)]',
+    crimson: 'bg-[var(--rust)] text-[var(--surface)] hover:bg-[var(--rust)]',
+    white: 'bg-[var(--surface)] text-[var(--ink)] hover:bg-[var(--surface)]',
+    outline: 'bg-transparent text-[var(--ink)] border-2 border-[var(--ink)] hover:bg-[var(--ink)]/5',
   };
 
   const sizeStyles = {
@@ -39,9 +39,7 @@ export const Button: React.FC<ButtonProps> = ({
     <button
       className={twMerge(
         clsx(
-          'inline-flex items-center justify-center gap-2 border-2 border-black font-display tracking-tight transition-all duration-100',
-          'shadow-brutal hover:shadow-brutal-hover hover:-translate-x-[2px] hover:-translate-y-[2px]',
-          'active:shadow-none active:translate-x-[4px] active:translate-y-[4px]',
+          'mechanical-button inline-flex items-center justify-center gap-2 border-2 font-display tracking-tight transition-all duration-150',
           'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-brutal disabled:hover:translate-x-0 disabled:hover:translate-y-0',
           variantStyles[variant],
           sizeStyles[size],

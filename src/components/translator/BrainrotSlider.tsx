@@ -9,11 +9,11 @@ interface BrainrotSliderProps {
 }
 
 const LEVEL_DETAILS: Record<BrainrotLevel, { name: string; tag: string; icon: React.ReactNode; color: string; desc: string }> = {
-  1: { name: 'Subtle / Casual', tag: 'LVL 1', icon: <Smile className="w-4 h-4" />, color: '#10B981', desc: 'Mild slang (lowkey, bet, hits different)' },
-  2: { name: 'Active Social', tag: 'LVL 2', icon: <Sparkles className="w-4 h-4" />, color: '#00F0FF', desc: 'Mainstream discourse (delulu, side-eye, rent-free)' },
-  3: { name: 'Hyper-Online', tag: 'LVL 3', icon: <Zap className="w-4 h-4" />, color: '#E2F952', desc: 'High velocity slang (lock in, cooked, crashout)' },
-  4: { name: 'High Irony', tag: 'LVL 4', icon: <Flame className="w-4 h-4" />, color: '#FF5C00', desc: 'Subculture meta-irony (mewing streak, mogging, mid)' },
-  5: { name: 'TERMINAL BRAINROT', tag: 'LVL 5', icon: <Skull className="w-4 h-4" />, color: '#EF4444', desc: 'Absolute surreal delirium (skibidi, fanum tax, ohio)' },
+  1: { name: 'Subtle / Casual', tag: 'LVL 1', icon: <Smile className="w-4 h-4" />, color: '#A3B86C', desc: 'Mild slang (lowkey, bet, hits different)' },
+  2: { name: 'Active Social', tag: 'LVL 2', icon: <Sparkles className="w-4 h-4" />, color: '#9BBFC0', desc: 'Mainstream discourse (delulu, side-eye, rent-free)' },
+  3: { name: 'Hyper-Online', tag: 'LVL 3', icon: <Zap className="w-4 h-4" />, color: '#A3B86C', desc: 'High velocity slang (lock in, cooked, crashout)' },
+  4: { name: 'High Irony', tag: 'LVL 4', icon: <Flame className="w-4 h-4" />, color: '#C27D65', desc: 'Subculture meta-irony (mewing streak, mogging, mid)' },
+  5: { name: 'TERMINAL BRAINROT', tag: 'LVL 5', icon: <Skull className="w-4 h-4" />, color: '#A35C48', desc: 'Absolute surreal delirium (skibidi, fanum tax, ohio)' },
 };
 
 export const BrainrotSlider: React.FC<BrainrotSliderProps> = ({ value, onChange, disabled = false }) => {

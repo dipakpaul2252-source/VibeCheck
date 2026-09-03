@@ -118,8 +118,8 @@ export const DualPaneWorkspace: React.FC<DualPaneWorkspaceProps> = ({
   return (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
       {/* INPUT PANE */}
-      <div className="fluid-surface flex min-h-[360px] flex-col p-5 transition-transform duration-300 hover:-translate-y-0.5">
-        <div className="flex items-center justify-between border-b-2 border-black pb-3">
+      <div className="fluid-surface flex min-h-[360px] flex-col bg-[var(--surface)] p-5 transition-transform duration-300 hover:-translate-y-0.5">
+        <div className="flex items-center justify-between border-b border-[var(--line)] pb-3">
           <div className="flex items-center gap-2">
             <span className="border-2 border-black bg-[#E2F952] px-2 py-0.5 font-mono text-xs font-black text-black shadow-brutal-sm select-none">
               INPUT
@@ -146,7 +146,7 @@ export const DualPaneWorkspace: React.FC<DualPaneWorkspaceProps> = ({
             handleTranslate(e.target.value, direction);
           }}
           placeholder={direction === 'to_genz' ? 'Type standard or corporate English...' : 'Paste Gen Z brainrot slang to de-cringe...'}
-          className="mt-4 min-h-[160px] w-full resize-none border-2 border-black p-3 font-mono text-sm leading-relaxed text-black placeholder:text-neutral-400 focus:bg-[#FFFDE8] focus:outline-none"
+          className="mt-4 min-h-[160px] w-full resize-none rounded-md border border-dashed border-[var(--line)] bg-[var(--surface)] p-4 text-base leading-relaxed text-[var(--ink)] placeholder:text-[var(--muted)] shadow-[inset_0_2px_5px_rgba(36,37,40,.12)] focus:bg-[var(--surface)] focus:outline-none"
         />
         
         <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t-2 border-black pt-3">
@@ -194,8 +194,8 @@ export const DualPaneWorkspace: React.FC<DualPaneWorkspaceProps> = ({
       </div>
 
       {/* OUTPUT PANE */}
-      <div className="fluid-surface flex min-h-[360px] flex-col p-5 transition-transform duration-300 hover:-translate-y-0.5">
-        <div className="flex items-center justify-between border-b-2 border-black pb-3">
+      <div className="fluid-surface flex min-h-[360px] flex-col bg-[var(--output)] p-5 transition-transform duration-300 hover:-translate-y-0.5">
+        <div className="flex items-center justify-between border-b border-[var(--line)] pb-3">
           <div className="flex items-center gap-2">
             <span className="border-2 border-black bg-[#C084FC] px-2 py-0.5 font-mono text-xs font-black text-black shadow-brutal-sm select-none">
               OUTPUT
@@ -227,7 +227,7 @@ export const DualPaneWorkspace: React.FC<DualPaneWorkspaceProps> = ({
           </div>
         </div>
         
-        <div className="mt-4 min-h-[160px] border-2 border-black bg-[var(--lilac)]/45 p-4 font-mono text-sm leading-relaxed text-[var(--ink)] rounded-lg">
+        <div className="translation-output mt-4 min-h-[160px] rounded-md border border-[var(--line)] bg-[var(--surface)] p-5 text-base leading-relaxed text-[var(--ink)] shadow-[inset_0_2px_0_rgba(36,37,40,.12)]">
           <p className="whitespace-pre-wrap">{displayedText}</p>
           {isTyping && <span className="inline-block h-4 w-2 animate-ping bg-black ml-1" />}
         </div>
